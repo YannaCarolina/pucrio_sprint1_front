@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Page Cadastro</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="cardHeader">
+                <img src="assets/petIcon.svg" class="petIcon">
+                <h1>Projetin de Cria</h1>
+            </div>
+            <h2>Cadastro</h2>
+            <form id="cadastroForm">
+                
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="age">Idade:</label>
+                <input type="number" id="age" name="age" required>
+
+                <label for="owner">Dono:</label>
+                <input type="text" id="owner" name="owner" required>
+
+                <label for="breed">Raça:</label>
+                <input type="text" id="breed" name="breed" required>
+
+                <label for="frequency">Frequência:</label>
+                <input type="text" id="frequency" name="frequency" required>
+
+                <label for="health_info">Informações de Saúde:</label>
+                <input type="text" id="health_info" name="health_info" required>
+
+                <label for="obs">Observações:</label>
+                <input type="text" id="obs" name="obs" required>
+
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+        <div id="cadastros" class="cadastros">
+            <h2>Cadastros Executados</h2>
+            <p id="noCadastrosMessage">No pets in list</p>
+            <!-- Cadastros Feitos -->
+        </div>
+    </div>
+    <script src="scripts/scripts.js"></script>
+</body>
+</html>
