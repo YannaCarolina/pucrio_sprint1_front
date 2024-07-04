@@ -1,15 +1,21 @@
-const backendUrl = 'http://127.0.0.1:5000/api';
+const backendUrl = 'http://127.0.0.1:5000/api/pets/';
 
-document.addEventListener('DOMContentLoaded', function() {
-    fetch(`${backendUrl}/pets`)
+document.addEventListener('DOMContentLoaded', function () {
+    fetch(backendUrl)
         .then(response => response.json())
         .then(data => {
+            if (data.length > 0) {
+                document.getElementById('noCadastrosMessage').style.display = 'none';
+            }
             data.forEach(pet => {
                 addCadastroCard(pet);
             });
+        })
+        .catch(error => {
+            console.error('Erro ao carregar pets:', error);
         });
 
-    document.getElementById('cadastroForm').addEventListener('submit', function(event) {
+    document.getElementById('cadastroForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
         const name = document.getElementById('name').value;
@@ -20,21 +26,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const health_info = document.getElementById('health_info').value;
         const obs = document.getElementById('obs').value;
 
-        fetch(`${backendUrl}/add/0`, {
+        fetch(backendUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ name, age, owner, breed, frequency, health_info, obs })
         })
-        .then(response => response.json())
-        .then(data => {
-            addCadastroCard(data);
-            document.getElementById('cadastroForm').reset();
-        })
-        .catch(error => {
-            console.error('Erro ao cadastrar pet:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                addCadastroCard(data);
+                document.getElementById('cadastroForm').reset();
+            })
+            .catch(error => {
+                console.error('Erro ao cadastrar pet:', error);
+            });
     });
 });
 
@@ -61,7 +67,7 @@ function addCadastroCard(pet) {
     editIcon.className = 'edit-icon';
     editIcon.innerHTML = '✏️';
 
-    editIcon.addEventListener('click', function() {
+    editIcon.addEventListener('click', function () {
         if (editIcon.innerHTML === '✏️') {
             const nameSpan = cadastroInfo.querySelector('.name');
             const ageSpan = cadastroInfo.querySelector('.age');
@@ -97,27 +103,35 @@ function addCadastroCard(pet) {
             const newHealthInfo = editHealthInfoInput.value;
             const newObs = editObsInput.value;
 
-            fetch(`${backendUrl}/add/${pet.id}`, {
+            fetch(`${backendUrl}${pet.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ name: newName, age: newAge, owner: newOwner, breed: newBreed, frequency: newFrequency, health_info: newHealthInfo, obs: newObs })
+                body: JSON.stringify({
+                    name: newName,
+                    age: newAge,
+                    owner: newOwner,
+                    breed: newBreed,
+                    frequency: newFrequency,
+                    health_info: newHealthInfo,
+                    obs: newObs
+                })
             })
-            .then(response => response.json())
-            .then(data => {
-                cadastroInfo.querySelector('.name').textContent = data.name;
-                cadastroInfo.querySelector('.age').textContent = data.age;
-                cadastroInfo.querySelector('.owner').textContent = data.owner;
-                cadastroInfo.querySelector('.breed').textContent = data.breed;
-                cadastroInfo.querySelector('.frequency').textContent = data.frequency;
-                cadastroInfo.querySelector('.health_info').textContent = data.health_info;
-                cadastroInfo.querySelector('.obs').textContent = data.obs;
-                editIcon.innerHTML = '✏️';
-            })
-            .catch(error => {
-                console.error('Erro ao editar pet:', error);
-            });
+                .then(response => response.json())
+                .then(data => {
+                    cadastroInfo.querySelector('.name').textContent = data.name;
+                    cadastroInfo.querySelector('.age').textContent = data.age;
+                    cadastroInfo.querySelector('.owner').textContent = data.owner;
+                    cadastroInfo.querySelector('.breed').textContent = data.breed;
+                    cadastroInfo.querySelector('.frequency').textContent = data.frequency;
+                    cadastroInfo.querySelector('.health_info').textContent = data.health_info;
+                    cadastroInfo.querySelector('.obs').textContent = data.obs;
+                    editIcon.innerHTML = '✏️';
+                })
+                .catch(error => {
+                    console.error('Erro ao editar pet:', error);
+                });
         }
     });
 
@@ -125,18 +139,21 @@ function addCadastroCard(pet) {
     deleteIcon.className = 'delete-icon';
     deleteIcon.innerHTML = '🗑️';
 
-    deleteIcon.addEventListener('click', function() {
-        fetch(`${backendUrl}/delete/${pet.id}`, {
+    deleteIcon.addEventListener('click', function () {
+        fetch(`${backendUrl}${pet.id}`, {
             method: 'DELETE'
         })
-        .then(response => response.json())
-        .then(data => {
-            cadastroCard.remove();
-            checkCadastros();
-        })
-        .catch(error => {
-            console.error('Erro ao deletar pet:', error);
-        });
+            .then(response => {
+                if (response.ok) {
+                    cadastroCard.remove();
+                    checkCadastros();
+                } else {
+                    throw new Error('Erro ao deletar pet');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao deletar pet:', error);
+            });
     });
 
     iconContainer.appendChild(editIcon);

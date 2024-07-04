@@ -3,47 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Single Page Cadastro</title>
+    <title>Pet Management</title>
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
     <div class="container">
         <div class="card">
             <div class="cardHeader">
-                <img src="assets/petIcon.svg" class="petIcon">
-                <h1>Projetin de Cria</h1>
+                <img src="assets/petIcon.svg" class="petIcon" alt="Pet Icon">
+                <h1>Pet Management</h1>
             </div>
-            <h2>Cadastro</h2>
-            <form id="cadastroForm">
-                
-                <label for="name">Nome:</label>
+            <h2>Pet Registration</h2>
+            <form id="cadastroForm" method="post">
+                <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
 
-                <label for="age">Idade:</label>
+                <label for="age">Age:</label>
                 <input type="number" id="age" name="age" required>
 
-                <label for="owner">Dono:</label>
+                <label for="owner">Owner:</label>
                 <input type="text" id="owner" name="owner" required>
 
-                <label for="breed">Raça:</label>
+                <label for="breed">Breed:</label>
                 <input type="text" id="breed" name="breed" required>
 
-                <label for="frequency">Frequência:</label>
+                <label for="frequency">Boarding Frequency:</label>
                 <input type="text" id="frequency" name="frequency" required>
 
-                <label for="health_info">Informações de Saúde:</label>
+                <label for="health_info">Health Information:</label>
                 <input type="text" id="health_info" name="health_info" required>
 
-                <label for="obs">Observações:</label>
+                <label for="obs">Observations:</label>
                 <input type="text" id="obs" name="obs" required>
 
-                <button type="submit">Cadastrar</button>
+                <button type="submit">Register</button>
             </form>
         </div>
         <div id="cadastros" class="cadastros">
-            <h2>Cadastros Executados</h2>
-            <p id="noCadastrosMessage">No pets in list</p>
-            <!-- Cadastros Feitos -->
+            <h2>Registered Pets</h2>
+            <p id="noCadastrosMessage">No pets registered yet.</p>
+            <!-- Cards of Registered Pets -->
         </div>
     </div>
     <script src="scripts/scripts.js"></script>
