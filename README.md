@@ -1,4 +1,5 @@
-# Pet Creche - Frontend
+# Pet Management - Frontend
+Pasta do Frontend da Sprint (Desenvolvimento Full Stack Básico)
 # Descrição
 Pet Creche é um sistema que possibilita o cadastro de alunos (pets) que estão matriculados na creche. O frontend permite aos usuários inserir e visualizar informações detalhadas dos pets, como nome, idade, dono, raça, frequência, informações de saúde e observações.
 
